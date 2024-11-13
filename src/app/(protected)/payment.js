@@ -1,190 +1,190 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { Button, StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { useState } from "react";
-import { router } from "expo-router";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import DataTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
+import { router } from "@expo-router";
+import { useEffect, useRef, useState } from "react";
+import {
+    Button,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    Platform,
+} from "react-native";
+import { z } from "zod";
+import { usePaymentsDatabase } from "../../database/usePaymentsDatabase";
+import { useUsersDatabase } from "../../database/useUsersDatabase"
+import { useAuth } from "../../hooks/Auth/index";
+
+const paymentSchema = z.object({
+    valor: z.number().gt(0),
+    user_id: z.number().int().positive(),
+    user_cadastro: z.number().int().positive(),
+    data_pagamento: z.date(),
+    observacao: z.string
+});
 
 export default function Payments() {
     const [valor, setValor] = useState("0,00");
     const [sugestoes, setSugestoes] = useState([
-        {
-            "id": 1,
-            "nome": "Earl Plose"
-        }, {
-            "id": 2,
-            "nome": "Nolan Jancey"
-        }, {
-            "id": 3,
-            "nome": "Napoleon Abelevitz"
-        }, {
-            "id": 4,
-            "nome": "Galen Vicker"
-        }, {
-            "id": 5,
-            "nome": "Judah Klassmann"
-        }, {
-            "id": 6,
-            "nome": "Lewie Folshom"
-        }, {
-            "id": 7,
-            "nome": "Nedda Swenson"
-        }, {
-            "id": 8,
-            "nome": "Tab Baynham"
-        }, {
-            "id": 9,
-            "nome": "Bonny Weare"
-        }, {
-            "id": 10,
-            "nome": "Erwin Mithun"
-        }, {
-            "id": 11,
-            "nome": "Flinn Ranyell"
-        }, {
-            "id": 12,
-            "nome": "Cassie Colegate"
-        }, {
-            "id": 13,
-            "nome": "Ronna Dummer"
-        }, {
-            "id": 14,
-            "nome": "Moises MacConchie"
-        }, {
-            "id": 15,
-            "nome": "Bastien Carville"
-        }, {
-            "id": 16,
-            "nome": "Krysta Diack"
-        }, {
-            "id": 17,
-            "nome": "Shanie Hrus"
-        }, {
-            "id": 18,
-            "nome": "Catarina Dobbing"
-        }, {
-            "id": 19,
-            "nome": "Malvin Sweetzer"
-        }, {
-            "id": 20,
-            "nome": "Clarinda Wilton"
-        }, {
-            "id": 21,
-            "nome": "Alford Dutteridge"
-        }, {
-            "id": 22,
-            "nome": "Mylo Press"
-        }, {
-            "id": 23,
-            "nome": "Zara Noel"
-        }, {
-            "id": 24,
-            "nome": "Horton Dury"
-        }, {
-            "id": 25,
-            "nome": "Ina Blazej"
-        }, {
-            "id": 26,
-            "nome": "Josey Frushard"
-        }, {
-            "id": 27,
-            "nome": "Jandy Dearnley"
-        }, {
-            "id": 28,
-            "nome": "Bar Edmeads"
-        }, {
-            "id": 29,
-            "nome": "Tod Barbe"
-        }, {
-            "id": 30,
-            "nome": "Antoni Mullender"
-        }, {
-            "id": 31,
-            "nome": "Charity Paddingdon"
-        }, {
-            "id": 32,
-            "nome": "Rosalinda Brimfield"
-        }, {
-            "id": 33,
-            "nome": "Terza Montgomery"
-        }, {
-            "id": 34,
-            "nome": "Joete Usmar"
-        }, {
-            "id": 35,
-            "nome": "Chiquita Mattosoff"
-        }
+       
     ]);
     const [id, setId] = useState(1);
     const [data, setData] = useState(new Date());
     const [viewCalendar, setViewCalendar] = useState(false);
+    const [observacao, setObservacao] = useState("");
+    const ValueRef = useRef();
+    const { user } = useAuth()
+    const { createPayment } = usePaymentsDatabase();
+    const { getAllUsers } = useUsersDatabase();
 
     const handleCalendar = (event, selectedDate) => {
         setData(selectedDate);
         setViewCalendar(false);
-    }
+    };
+
+    useEffect(() => {
+        (async () => {
+
+        })();
+
+        valueRef?.current?.focus();
+        try {
+            const users = await getAllUsers();
+        } catch (error) {}
+    }, [])
+;
+    const handleChangeValor = (value) => {
+        try {
+            let valorLimpo = value.replace(",", "").replace(".", "");
+            let valorConvertido = Number(valorLimpo) / 100;
+            if (valorConvertido === 0 || isNaN(valorConvertido)) {
+                setValor("0,00")
+                return;
+            }
+            let valorPtBr = Int1.NumberFormat("pt-BR", {
+                style: "decimal",
+                minimumFractionDigits: 2,
+            }).format(valorConvertido);
+            setValor(valorPtBR);
+        } catch (error) {
+            setValor("0,00")
+        }
+    };
 
 
-    return <View style={styles.content}>
-        <View style={styles.inputView}>
-            <View style={styles.inputView}>
-                <Ionicons name="wallet" size={24} color="black" />
-                <TextInput
-                    placeholder="Valor"
-                    keyboardType="decimal-pad"
-                    style={styles.inputValor}
-                    value={valor}
-                    onChangeText={setValor}
-                />
+    const convertValue = (value) => {
+        try {
+            let valorLimpo = value.replace(",", "").replace(".", "");
+            let valorConvertido = Number(valorLimpo) / 100;
+            if (valorConvertido === 0 || isNaN(valorConvertido)) {
+                return 0
+            }
+            return valorConvertido
+        } catch (error) {
+            return valorConvertido
+        }
+    };
+
+    const handleSubmit = async () => {
+        const payment = {
+            user_id: id,
+            user_cadastro: number(user.id),
+            valor_pago: convertValue(valor),
+            data_pagamento: data,
+            observacao,
+        };
+
+        try {
+            const result = await paymentSchema.perseAsync(payment)
+            const { insertedID } = await createPayment(payment);
+            console.log(result);
+            console.log(insertedID);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    return (
+        <KeyboardAvoidingView
+            styles={{ flex: 1 }}
+            behavior={Platform.os === 'ios' ? "padding" : "heigth"}
+        >
+            <View style={styles.content}>
+                <View style={styles.inputView}>
+                    <Text>Inserir Pagamentos</Text>
+                    <View style={styles.inputView}>
+                        <Ionicons name="wallet" size={24} color="black" />
+                        <TextInput
+                            placeholder="Valor"
+                            keyboardType="decimal-pad"
+                            style={styles.inputValor}
+                            value={valor}
+                            onChangeText={(newValue) => handleChangeValor(newValue)}
+                            ref={ValueRef}
+                        />
+                    </View>
+                    <TextInput
+                        placeholder="Valor"
+                        keyboardType="decimal-pad"
+                        style={styles.inputValor}
+                        value={valor}
+                        onChangeText={setValor}
+                    />
+                </View>
+                <View style={styles.inputView}>
+                    <Picker
+                        selectedValue={id}
+                        onValueChange={(itemValue, index) => {
+                            setId(itemValue);
+                        }}
+                        style={{ width: "100%" }}
+                    >
+                        {sugestoes?.map((item) => {
+                            return (
+                                <Picker.Item key={item.id} label={item.nome} value={item.id} />
+                            );
+                        })}
+                    </Picker>
+                </View>
+                <View style={styles.inputView}>
+                    <Text onPress={() => setViewCalendar(true)} style={styles.inputValor}>
+                        {data.toLocaleDateString().split("T")[0]}
+                    </Text>
+                    {viewCalendar && (
+                        <DateTimePicker
+                            value={data}
+                            onChange={handleCalendar}
+                            mode="date"
+                            testId="dateTimePicker"
+                        />
+                    )}
+                </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        placeholder="Observações"
+                        style={styles.inputObservacao}
+                        value={observacao}
+                        onChangeText={setObservacao}
+                        multiline={true}
+                    />
+                </View>
+                <View style={styles.contentButtons}>
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText}>Salvar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText}>Continuar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={() => router.back()}>
+                        <Text style={styles.buttonText}>Cancelar</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-            <TextInput
-                placeholder="Valor"
-                keyboardType="decimal-pad"
-                style={styles.inputValor}
-                value={valor}
-                onChangeText={setValor}
-            />
-        </View>
-        <View style={styles.inputView}>
-            <Picker
-                selectedValue={id}
-                onValueChange={(itemValue, index) => {
-                    setId(itemValue);
-                }}
-                style={{ width: "100%" }}
-            >
-                {sugestoes?.map((item) => {
-                    return <Picker.item key={item.id} label={item.nome} value={item.id} />
-                })}
-            </Picker>
-        </View>
-        <View style={styles.inputView}>
-            <Text onPress={() => setViewCalendar(true)}>
-                {data.toLocaleDateString().split("T")[0]}
-            </Text>
-            {viewCalendar && (
-                <DateTimePicker
-                    value={data}
-                    onChange={handleCalendar} mode="date"
-                />
-            )}
-        </View>
-        <View style={styles.inputView}>
-            <TextInput style={styles.input}
-                placeholder="Observações" multiline />
-        </View>
-        <View style={styles.contentButtons}>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Salvar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Continuar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => router.back()}>
-                <Text style={styles.buttonText}>Cancelar</Text>
-            </TouchableOpacity>
-        </View>
-    </View>
+        </KeyboardAvoidingView>
+    );
 }
 
 const styles = StyleSheet.create({

@@ -18,15 +18,16 @@ export async function initializeDatabase(database) {
           CREATE TABLE IF NOT EXISTS payments(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
-                user_nome TEXT,
-                foto IMAGE,
-                valor_estimado REAL,
-                marca TEXT,
-                modelo TEXT,
-                data_fabricacao DATE,
-                descricao TEXT,
+                user_cadastro INTEGER NOT NULL,
+                valor_pago REAL NOT NULL,
+                data_pagamento DATE NOT NULL,
+                observacao TEXT,
                 created_at DATE DEFAULT CURRENT_TIMESTAMP,
                 update_at DATE,
+                ep TEXT,
+                foto IMAGE,
+                temporada TEXT,
+                descricao TEXT,
                 FOREIGN KEY (user_id) REFERENCES users(id),
                 FOREIGN KEY (user_nome) REFERENCES users(nome)
           );
