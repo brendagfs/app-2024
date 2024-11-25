@@ -12,6 +12,7 @@ import {
     TouchableOpacity,
     KeyboardAvoidingView,
     Platform,
+    Alert,
 } from "react-native";
 import { z } from "zod";
 import { usePaymentsDatabase } from "../../database/usePaymentsDatabase";
@@ -23,7 +24,8 @@ const paymentSchema = z.object({
     user_id: z.number().int().positive(),
     user_cadastro: z.number().int().positive(),
     data_pagamento: z.date(),
-    observacao: z.string
+    numero_recebido: z.string(),
+    observacao: z.string().optional(),
 });
 
 export default function Payments() {
@@ -33,6 +35,7 @@ export default function Payments() {
     const [data, setData] = useState(new Date());
     const [viewCalendar, setViewCalendar] = useState(false);
     const [observacao, setObservacao] = useState("");
+    const [numeroRecibo, setNumeroRecebido] = useState("");
     const ValueRef = useRef();
     const { user } = useAuth()
     const { createPayment } = usePaymentsDatabase();
@@ -94,6 +97,7 @@ export default function Payments() {
             user_cadastro: number(user.id),
             valor_pago: convertValue(valor),
             data_pagamento: data,
+            numero_receido: numeroRecibo,
             observacao,
         };
 
@@ -105,8 +109,10 @@ export default function Payments() {
             setId(sugestoes[0].id);
             setData(new Date());
             setObservacao("");
+            setNumeroRecebido("");
             valueRef?.current?.focus();
-        } catch (error) {
+        } catch (error) { 
+            Alert.alert("Erro", 'Erro ao inserir pagamento: ${error.');
             console.log(error);
         }
     };
@@ -128,6 +134,16 @@ export default function Payments() {
                             value={valor}
                             onChangeText={(newValue) => handleChangeValor(newValue)}
                             ref={ValueRef}
+                        />
+                    </View>
+                    <View style={styles.inputView}>
+                    <Ionicons name="cash-outline" size={24} color="black" />
+                        <TextInput
+                            placeholder="Numero do recibo"
+                            keyboardType="decimal-pad"
+                            style={styles.inputValor}
+                            value={numeroRecibo}
+                            onChangeText={setNumeroRecebido}
                         />
                     </View>
                     <TextInput
