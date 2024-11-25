@@ -28,9 +28,7 @@ const paymentSchema = z.object({
 
 export default function Payments() {
     const [valor, setValor] = useState("0,00");
-    const [sugestoes, setSugestoes] = useState([
-       
-    ]);
+    const [sugestoes, setSugestoes] = useState([]);
     const [id, setId] = useState(1);
     const [data, setData] = useState(new Date());
     const [viewCalendar, setViewCalendar] = useState(false);
@@ -47,13 +45,15 @@ export default function Payments() {
 
     useEffect(() => {
         (async () => {
-
+            valueRef?.current?.focus();
+            try {
+                const users = await getAllUsers();
+                setSugestoes(users);
+                setId(users[0].id);
+            } catch (error) {
+                console.log(error);
+            }
         })();
-
-        valueRef?.current?.focus();
-        try {
-            const users = await getAllUsers();
-        } catch (error) {}
     }, [])
 ;
     const handleChangeValor = (value) => {
@@ -100,8 +100,12 @@ export default function Payments() {
         try {
             const result = await paymentSchema.perseAsync(payment)
             const { insertedID } = await createPayment(payment);
-            console.log(result);
             console.log(insertedID);
+            setValor("0,00");
+            setId(sugestoes[0].id);
+            setData(new Date());
+            setObservacao("");
+            valueRef?.current?.focus();
         } catch (error) {
             console.log(error);
         }
