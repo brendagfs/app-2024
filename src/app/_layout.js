@@ -7,10 +7,10 @@ const StackLayout = () => {
   const {user} = useAuth();
 
  useEffect(() => {
-  if ( (!user?.autenticated)) {
-        router.replace("signin")
+  if ( (!user?.authenticated)) {
+        router.replace("signin");
        } else {
-        router.replace("(protected)");
+        router.replace("(protected)/list");
        }
  }, [user]);
 

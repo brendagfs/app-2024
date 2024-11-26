@@ -6,8 +6,8 @@ export function usePaymentsDatabase() {
     async function createPayment ({
     user_id,
     user_cadastro,
-    valor_pago,
-    data_pagamento,
+    valor_pago
+    ,data_pagamento,
     observacao,
     numero_recebido
 }) {
@@ -35,5 +35,16 @@ export function usePaymentsDatabase() {
     }
 }
 
-    return{ createPayment };
+async function getPayments() {
+    try {
+
+        const payments = await database.getAllAsync("SELECT * FROM payments");
+        return payments;
+    } catch (error){
+        console.log(error);
+        throw error;
+     }
+}
+
+    return{ createPayment, getPayments };
 }
