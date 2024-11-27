@@ -52,7 +52,7 @@ export function Banner() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#0b090a",
+    backgroundColor: "#fff",
   },
   content: {
     height: 200, // Altura fixa para o banner (tamanho do cabeçalho)
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     marginHorizontal: 5,
-    backgroundColor: "#ba181b", // Vermelho para bullets inativos
+    backgroundColor: "#758694", // Vermelho para bullets inativos
   },
   activeBullet: {
     backgroundColor: "#fff", // Branco para bullets ativos

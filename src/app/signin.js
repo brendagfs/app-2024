@@ -28,11 +28,11 @@ export default function App() {
     <View style={styles.container}>
       {/* Imagem de perfil com borda suave */}
       <Image
-        source={{ uri: "https://c4.wallpaperflare.com/wallpaper/271/233/318/birth-of-venus-sandro-botticelli-painting-oil-painting-renaissance-hd-wallpaper-preview.jpg" }} // Substitua pela URL da sua imagem
+        source={{ uri: "https://i.pinimg.com/736x/7f/94/ce/7f94ce14b7d0cfad22fbe00afa176fa0.jpg" }} 
         style={styles.profileImage}
       />
 
-      <Text style={styles.title}>Bem-vindo ao App!</Text>
+      <Text style={styles.title}>Bem-vindo ao Watcher!</Text>
 
       {/* Caixa de entrada de e-mail */}
       <View style={styles.inputBox}>
@@ -89,7 +89,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1e1e2f", // Cor de fundo escura para um visual mais elegante
+    backgroundColor: "#2E073F", // Cor de fundo escura para um visual mais elegante
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: 60, // Borda redonda
     marginBottom: 30,
     borderWidth: 6,
-    borderColor: "#fff", // Borda branca para destacar a imagem
+    borderColor: "#FFB200", // Borda branca para destacar a imagem
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
@@ -109,14 +109,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "600",
-    color: "#fff",
+    color: "#ffb200",
     textAlign: "center",
     marginBottom: 40,
   },
   inputBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#2a2a43", // Fundo de campos mais escuro
+    backgroundColor: "#522258", // Fundo de campos mais escuro
     borderRadius: 30,
     paddingVertical: 12,
     paddingHorizontal: 20,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   button: {
-    backgroundColor: "#ff6f61", // Gradiente de cor quente
+    backgroundColor: "#FFB200", // Gradiente de cor quente
     padding: 16,
     borderRadius: 30,
     width: "100%",
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   linkText: {
-    color: "#ff6f61", // Cor de link com o mesmo tom quente do botão
+    color: "#ffb200", // Cor de link com o mesmo tom quente do botão
     fontSize: 16,
     textDecorationLine: "underline",
   },
