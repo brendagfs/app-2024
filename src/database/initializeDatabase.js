@@ -1,54 +1,53 @@
+import { } from "expo-sqlite";
+
 export async function initializeDatabase(database) {
-    try {
-        await database.execAsync(`
-         /* DROP TABLE IF EXISTS payments;
-          
-          DROP TABLE IF EXISTS users;
+  try {
+    await database.execAsync(`
+         DROP INDEX IF EXISTS idx_payments_id;
 
-          DROP INDEX IF EXISTS idx_users_nome;
+        DROP INDEX IF EXISTS idx_payments_data_vencimento;
+        
+        DROP TABLE IF EXISTS payments;
 
-          DROP INDEEX IF EXISTS idx_payments_data_pagamento; */
-
-          CREATE TABLE IF NOT EXISTS users (
-              id INTEGER PRIMARY KEY AUTOINCREMENT,
-              nome TEXT,
-              email TEXT NOT NULL UNIQUE,
-              senha TEXT NOT NULL DEFAULT 'A123456a!',
-              role TEXT NOT NULL DEFAULT 'USER',
-              created_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-              updated_at DATE
-          );
-
-          CREATE TABLE IF NOT EXISTS payments(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INTEGER NOT NULL,
-                user_cadastro INTEGER NOT NULL,
-                valor_pago REAL NOT NULL,
-                data_pagamento DATE NOT NULL,
-                numero_recibo TEXT NOT NULL,
-                observacao TEXT,
+        DROP TABLE IF EXISTS users; 
+        
+        CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL,
+                rm TEXT,
+                email TEXT NOT NULL UNIQUE,
+                senha TEXT DEFAULT 'A123456a!',
+                imagem TEXT DEFAULT "",
+                role TEXT DEFAULT 'user',
                 created_at DATE DEFAULT CURRENT_TIMESTAMP,
-                update_at DATE,
-                ep TEXT,
-                foto IMAGE,
-                temporada TEXT,
-                descricao TEXT,
-                FOREIGN KEY (user_id) REFERENCES users(id),
-                FOREIGN KEY (user_cadastro) REFERENCES users(id)
-          );
+                updated_at DATE DEFAULT null
+        );
 
-          CREATE INDEX IF NOT EXISTS idx_users_nome ON users (nome);
+        CREATE TABLE IF NOT EXISTS payments (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER,
+                valor REAL,
+                data_vencimento DATE,
+                confirmado BOOLEAN DEFAULT 0,
+                numero_documento TEXT,
+                imagem TEXT DEFAULT "",
+                created_at DATE DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATE DEFAULT null,
+                FOREIGN KEY (user_id) REFERENCES users(id)
+        );
 
-         CREATE INDEX IF EXISTS idx_payments_data_pagamentos ON payments (date_pagamento);
-          
-         /* INSERT OR REPLACE INTO users (nome, email, senha, role) VALUES ('Super','super@email.com','A123456a!','SUPER');
-          INSERT OR REPLACE INTO users (nome, email, senha, role) VALUES ('Admin','admin@email.com','A123456a!','ADMIN');
-          INSERT OR REPLACE INTO users (nome, email, senha, role) VALUES ('User','user@email.com','A123456a!','USER'); */
+         CREATE INDEX IF NOT EXISTS idx_payments_data_vencimento ON payments (data_vencimento);
 
-          
-          `);
-    } catch (error) {
-        console.log(error);
-    }
+        CREATE INDEX idx_payments_id ON payments (id);
+
+        DELETE FROM users WHERE email = 'admin@email.com';
+
+        INSERT OR REPLACE INTO users (nome, email, senha, role) VALUES ('Administrator', 'admin@email.com', 'admin', 'ADMIN');
+
+        INSERT INTO payments (user_id, valor, data_vencimento) VALUES (1, 100.00, DateTime('now')); 
+
+    `);
+  } catch (error) {
+    console.error(error);
+  }
 }
- 

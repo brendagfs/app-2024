@@ -13,7 +13,7 @@ function CustomDrawerContent(props) {
       <View style={styles.profileSection}>
         <Image
           source={{
-            uri: "https://www.github.com/brendagfs.png",
+            uri: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/437699/793893/main-image",
           }}
           style={styles.profileImage}
         />
@@ -43,16 +43,16 @@ const DrawerLayout = () => {
             drawerLabel: "Principal",
             headerTitle: "Principal",
             drawerIcon: () => <Ionicons name="home-outline" size={20} color="#ba181b" />, 
-            drawerLabelStyle: { color: "#ba181b", fontSize: 16, fontWeight: 'bold' }, 
+            drawerLabelStyle: { color: "#2A3663", fontSize: 16, fontWeight: 'bold' }, 
           }}
         />
         <Drawer.Screen
           name="list"
           options={{
-            drawerLabel: "Temporadas",
+            drawerLabel: "pinturas",
             headerTitle: "Temporadas",
-            drawerIcon: () => <Ionicons name="list-outline" size={20} color="#ba181b" />, 
-            drawerLabelStyle: { color: "#ba181b", fontSize: 16, fontWeight: 'bold' }, 
+            drawerIcon: () =><Ionicons name="color-palette-outline" size={24} color="2A3663" />, 
+            drawerLabelStyle: { color: "#2A3663", fontSize: 16, fontWeight: 'bold' }, 
           }}
         />
         <Drawer.Screen
@@ -61,7 +61,7 @@ const DrawerLayout = () => {
             drawerLabel: "Pagamentos",
             headerTitle: "Pagamentos",
             drawerIcon: () => <Ionicons name="diamond-outline" size={20} color="#ba181b" />, 
-            drawerLabelStyle: { color: "#ba181b", fontSize: 16, fontWeight: 'bold' }, 
+            drawerLabelStyle: { color: "#2A3663", fontSize: 16, fontWeight: 'bold' }, 
           }}
         />
       </Drawer>
@@ -76,13 +76,13 @@ export default function Layout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#161a1d', 
+    backgroundColor: '#E2C799', 
   },
   profileSection: {
     marginTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0b090a', 
+    backgroundColor: '#E2C799', 
     paddingVertical: 20,
   },
   profileImage: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#ba181b',
+    color: '#E2C799',
   },
   drawerContent: {
     paddingTop: 10,
@@ -104,11 +104,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 50,
     margin: 20,
-    backgroundColor: '#660708', 
+    backgroundColor: '#2A3663', 
     borderRadius: 10,
   },
   signOutButtonText: {
-    color: '#0b090a',
+    color: '#D8DBBD',
     fontWeight: 'bold',
     fontSize: 16,
   },

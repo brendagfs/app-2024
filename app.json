@@ -5,10 +5,10 @@
     "scheme": "react-native-expo-2024",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/spn.jpg",
+    "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./src/assets/spn.jpg",
+      "image": "./src/assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,7 +22,7 @@
       }
     },
     "web": {
-      "favicon": "./src/assets/spn.jpg"
+      "favicon": "./src/assets/icon.jpg"
     }
   }
 }

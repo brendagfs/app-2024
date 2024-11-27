@@ -1,43 +1,43 @@
 import { router } from "expo-router";
-import { Button, Text, View, StyleSheet, Image } from "react-native";
+import { Button, Text, View, StyleSheet, Image, ScrollView } from "react-native";
 
 export default function About() {
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.box}>
                 <Image
-                    source={{ uri: 'https://i.pinimg.com/564x/dc/b7/fe/dcb7fed33df65da31072a028bd7993ea.jpg' }}
+                    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGkFfpglbQWkcdy1mkT7uiF3cIAR-fWZ0TyA&s://i.pinimg.com/564x/dc/b7/fe/dcb7fed33df65da31072a028bd7993ea.jpg' }}
                     style={styles.image}
                 />
                 <Text style={styles.title}>Sobre</Text>
                 <Text style={styles.description}>
-                Olá! Meu nome é Brenda, tenho 16 anos e sou a criadora deste app e tenho aulas na escola ETEC Prof. Milton Gazzetti. Este app está sendo desenvolvido como trabalho avaliativo.
+                    Olá! Meu nome é Brenda, tenho 16 anos e sou a criadora deste app e tenho aulas na escola ETEC Prof. Milton Gazzetti. Este app está sendo desenvolvido como trabalho avaliativo.
                 </Text>
             </View>
 
             <View style={styles.box}>
                 <Text style={styles.subTitle}>Finalidade</Text>
                 <Text style={styles.description}>
-                Um lugar acessível para manter a ordem dos episódios que você já assistiu, colocar sua opinião e dar notas! Assim como para ver todas as temporadas e quantos episódios elas têm.
+                Este app tem como objetivo oferecer um espaço para te mostrar a beleza das pinturas renascentistas. Cada pintura é acompanhada de uma explicação sobre seu significado, contexto histórico e os elementos que a tornam única. O objetivo do app é proporcionar uma compreensão acessível e profunda da arte renascentista, permitindo que os usuários se conectem com a história da arte de maneira visual e educativa.
                 </Text>
-                <Button tittle="voltar" onPress={() => router.back()} color="green" />
+                <Button title="Voltar" onPress={() => router.back()} color="ff6f61" />
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#000",
+        backgroundColor: "#1e1e2f",
         padding: 20,
     },
     box: {
         width: "90%",
         padding: 20,
-        backgroundColor: "#a4161a",
+        backgroundColor: "#2a2a43",
         borderRadius: 10,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
@@ -57,17 +57,17 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "bold",
         marginBottom: 10,
-        color: "#161a1d",
+        color: "#fff",
     },
     subTitle: {
         fontSize: 20,
-        fontWeight: "600",
+        fontWeight: "fff",
         marginBottom: 10,
-        color: "#161a1d",
+        color: "#fff",
     },
     description: {
         fontSize: 16,
-        color: "#161a1d",
+        color: "#fff",
         textAlign: "center",
         marginBottom: 20,
     },

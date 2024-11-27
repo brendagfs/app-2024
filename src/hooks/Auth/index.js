@@ -3,7 +3,7 @@ import { useState } from "react";
 import React, { useContext } from "react";
 import { useUserDatabase } from "../../database/useUsersDatabase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Text, View } from "react-native";
 
 const AuthContext = createContext({});
 
@@ -43,7 +43,8 @@ export function AuthProvider({ children }) {
     LoadStoragedData();
   }, []);
 
-  const signIn = async ({ email, password }) => {
+  const signIn = async ({email, password}) => {
+    console.log("signIn do hooks email: '", email, "' - password: ", password);
     const response = await authUser({ email, password });
     if (!response) {
       setUser({
@@ -82,7 +83,7 @@ export function AuthProvider({ children }) {
       </View>
     );
   }
-  
+
   return (
     <AuthContext.Provider value={{ user, signIn, signOut }}>
       {children}

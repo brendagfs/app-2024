@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import DataTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
-import { router } from "@expo-router";
+import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
     Button,

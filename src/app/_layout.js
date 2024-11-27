@@ -4,15 +4,15 @@ import { useAuth } from "../hooks/Auth";
 import { useEffect } from "react";
 
 const StackLayout = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
 
- useEffect(() => {
-  if ( (!user?.authenticated)) {
-        router.replace("signin");
-       } else {
-        router.replace("(protected)/list");
-       }
- }, [user]);
+  useEffect(() => {
+    if ((!user?.authenticated)) {
+      router.replace("signin");
+    } else {
+      router.replace("(protected)/list");
+    }
+  }, [user]);
 
   return (
     <Stack>
